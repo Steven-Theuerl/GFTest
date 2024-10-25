@@ -1,0 +1,118 @@
+.Body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    background-color:rgb(107, 255, 107);
+
+}
+
+.fetchedContentContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: pink;
+    gap: 8px;
+    margin: 8px 24px;
+}
+
+.fetchedContentItemContainer {
+    background-color: aquamarine;
+    padding-left: 8px;
+}
+
+.fetchedContentItemContainer:first-child {
+    margin-top: 8px;
+}
+
+.fetchedContentItemContainer:last-child {
+    margin-bottom: 8px;
+}
+
+.submissionFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(249, 249, 156);
+    gap: 24px;
+}
+
+.submissionInput {
+    display: flex;
+    /* outline: 1px solid black; */
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin: 8px 0px;
+    height: 32px;
+}
+
+.submitButton {
+    width: 82px;
+    height: 32px;
+    color: white;
+    background-color: rgb(43, 42, 42);
+    border-radius: 8px;
+    align-self: center;
+}
+
+.entire_welcomePage {
+    display: flex;
+
+    justify-content: center;
+    background-color: rgb(193, 246, 193);
+    width: 100%;
+    min-height: 100vh; /* Remove the height property and add this */
+}
+
+.welcomePageContentContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    margin: 80px 80px;
+    background-color: yellow;
+}
+
+.topText {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    background-color: rgb(240, 160, 160);
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.topText p {
+    background-color: rgb(193, 248, 248)
+}
+
+.superSexyButton {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 32px;
+    color: white;
+    background-color: black;
+    border-radius: 4px;
+    margin: 10px;
+}
+
+.headerUserContainer {
+    display: flex;
+
+    background-color: yellow;
+    justify-content: space-between;
+    margin: 8px 24px;
+    gap: 8px;
+}
+
+
+.bodyHeader {
+    padding-left: 24px;
+    color: red;
+    font-weight: 700;
+}

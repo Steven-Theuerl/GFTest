@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.superSexyButton {
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 32px;
+    color: white;
+    background-color: black;
+    border-radius: 4px;
+    margin: 10px;
+}

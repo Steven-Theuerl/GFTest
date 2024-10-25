@@ -1,0 +1,38 @@
+.openMenu {
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    width: 648px;
+    height: 120px;
+    left: 80%;
+    transition: .5s;
+    background-color: white;
+    padding-top: 8px;
+    z-index: 10;
+}
+
+.closedMenu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 648px;
+    height: 120px;
+    left: 100%;
+    transition: .5s;
+    z-index: 10;
+    background-color: white;
+}
+
+.superSexyButton {
+    display: flex;
+    align-self: flex-start;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 32px;
+    color: white;
+    background-color: black;
+    border-radius: 4px;
+    margin: 10px;
+}
