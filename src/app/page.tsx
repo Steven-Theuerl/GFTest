@@ -6,7 +6,12 @@ import Link from 'next/link'
 
 import AccountButton from './components/homePageComponents/AccountButton'
 
+import TestComp1 from './components/TestComp1';
+import TestComp2 from './components/TestComp2';
+import TestComp3 from './components/TestComp3';
+
 import styles from './styles/page.module.css';
+
 
 const GENERAL_QUERY = `* | order(name asc)`;
 
@@ -21,27 +26,9 @@ interface Session {
 }
 
 export default async function Home() {
+  
   const session = await auth();
 
-  // Check if session is null or if user is not present
-  if (!session || !session.user) {
-    return (
-      <div className={styles.entire_welcomePage}>
-      <form className={styles.welcomePageContentContainer} action={async () => {
-        "use server";
-        await signIn("google");
-      }}>
-        <div className={styles.topText}>
-          <p>Hey!</p>
-          <p>Sign in for the best experience!</p>
-        </div>
-        <button className={styles.superSexyButton} type="submit">Sign in with Google</button>
-      </form>
-      </div>
-    );
-  }
-
-  // Fetch testContent only if the user is authenticated
   const allContent = await sanityFetch<SanityDocument[]>({ query: GENERAL_QUERY });
 
   const restaurantContent = allContent.filter(item => item._type === 'Restaurants');
@@ -59,12 +46,20 @@ export default async function Home() {
         <p>
          Congratulations! You are signed in with Google through Auth.js.
         </p>
-          <form className='flex gap-2' action={async () => {
-            "use server";
-            await signOut();
-          }}>
-          {session.user && <AccountButton session={session as Session} />} {/* Only render if user is defined */}
-          </form>
+          {session?.user && 
+            <form className='flex gap-2' action={async () => {
+              "use server";
+              await signOut();
+            }}>
+            <AccountButton session={session as Session} />
+            </form>}
+          {!session?.user && 
+            <form action={async () => {
+              'use server';
+              await signIn('google');
+            }}>
+              <button type='submit'>Sign in!</button>
+            </form>}
         </div>
         <div className={styles.Body}>
 
@@ -108,6 +103,15 @@ export default async function Home() {
         </div>
         </div>
     </div>
+    <div className={styles.mapHouse}>
+      <div className='flex flex-col gap-1 mb-1'>
+        <TestComp1/>
+        <TestComp2/>
+        <TestComp3/>
+      </div>
+    
+    </div>
+   
     </div>
   );
 }

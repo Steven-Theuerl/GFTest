@@ -116,3 +116,13 @@
     color: red;
     font-weight: 700;
 }
+
+.mapHouse {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 32px;
+}

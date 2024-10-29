@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ContextWrapper } from "./context/index";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -29,7 +30,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ContextWrapper>
+          {children}       
+        </ContextWrapper>
       </body>
     </html>
 
