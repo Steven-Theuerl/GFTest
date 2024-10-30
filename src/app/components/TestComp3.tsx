@@ -4,7 +4,17 @@ import React, { useState, useEffect } from "react";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps"; 
 import { useLocationContext } from "../context";
 
-const TestComp3 = () => {
+interface Location {
+
+    ItemLat: number; // or string, depending on your data type
+
+    ItemLng: number; // or string
+
+    ItemName: string
+
+}
+
+const TestComp3 = ({locations}:{locations: Location[] }) => {
     const { location, setLocation } = useLocationContext();
     const [mapKey, setMapKey] = useState(Date.now()); 
   
@@ -26,6 +36,8 @@ const TestComp3 = () => {
         }
     }
 
+    console.log(locations)
+
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string}>
             <Map
@@ -41,6 +53,17 @@ const TestComp3 = () => {
                     position={{ lat: latitude, lng: longitude }} // Marker position based on current location
                     title="Location Marker"
                 />
+                 {locations.map((location, index) => (
+                    <Marker
+                        key={index}
+                        position={{ lat: location.ItemLat, lng: location.ItemLng }}
+                        title={location.ItemName}
+                        icon={{
+                            url: 'https://maps.google.com/mapfiles/ms/icons/yellow-dot.png', // Change the URL to a different icon image
+                       
+                          }}
+                    />
+                ))}
             </Map>
         </APIProvider>
     );

@@ -34,18 +34,26 @@ export default async function Home() {
   const restaurantContent = allContent.filter(item => item._type === 'Restaurants');
   const productContent = allContent.filter(item => item._type === 'Products');
 
-  restaurantContent.forEach(item => {
-    console.log(`Restaurant ID: ${item._id}`);
-  });
+  const locations = restaurantContent.map(item => ({
+
+    ItemLat: item.Location?.lat, // Ensure the location property exists
+
+    ItemLng: item.Location?.lng, // Ensure the location property exists
+
+    ItemName: item.Name
+
+  }));
+
 
   return (
     <div className={styles.Body}>
-
       <p className='text-center'>Hello, I would like to fetch some data please.</p>  
         <div className={styles.headerUserContainer}>
-        <p>
-         Congratulations! You are signed in with Google through Auth.js.
-        </p>
+        {session?.user && 
+          <p>
+            Congratulations! You are signed in with Google through Auth.js.
+          </p>
+        }
           {session?.user && 
             <form className='flex gap-2' action={async () => {
               "use server";
@@ -54,7 +62,7 @@ export default async function Home() {
             <AccountButton session={session as Session} />
             </form>}
           {!session?.user && 
-            <form action={async () => {
+            <form  className='flex justify-end w-full'action={async () => {
               'use server';
               await signIn('google');
             }}>
@@ -71,17 +79,13 @@ export default async function Home() {
         { restaurantContent &&
           <ul className={styles.fetchedContentContainer}>
               {restaurantContent.map((item) => (
-                  
-                     <Link key={item._id} href={`/restaurants/${item._id}`} 
-                      className={styles.fetchedContentItemContainer}>
-                
-                          <h2>Name: {item.Name}</h2>
-                          <h3>Quality: {item.Quality}</h3>
-                          <h3>Cost: {item.Quality}</h3>
-                          <h3>Safety: {item.Quality}</h3>
-
-                  </Link>
-                
+                <Link key={item._id} href={`/restaurants/${item._id}`} 
+                  className={styles.fetchedContentItemContainer}>
+                      <h2>Name: {item.Name}</h2>
+                      <h3>Quality: {item.Quality}</h3>
+                      <h3>Cost: {item.Quality}</h3>
+                      <h3>Safety: {item.Quality}</h3>
+                </Link>
               ))}
           </ul>
         }
@@ -107,7 +111,7 @@ export default async function Home() {
       <div className='flex flex-col gap-1 mb-1'>
         <TestComp1/>
         <TestComp2/>
-        <TestComp3/>
+        <TestComp3 locations={locations}/>
       </div>
     
     </div>
