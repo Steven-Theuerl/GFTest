@@ -14,6 +14,7 @@ const Test_Comp1: React.FC = () => {
       latitude: parseFloat(latitude),
       longitude: parseFloat(longitude),
     });
+    localStorage.setItem('location', JSON.stringify({latitude: latitude, longitude: longitude}))
     setLatitude(''); // Clear the input after submission
     setLongitude(''); // Clear the input after submission
   };
