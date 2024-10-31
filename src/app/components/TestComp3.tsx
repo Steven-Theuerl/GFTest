@@ -18,14 +18,15 @@ const TestComp3 = ({locations}:{locations: Location[] }) => {
     const { location, setLocation } = useLocationContext();
     const [mapKey, setMapKey] = useState(Date.now()); 
   
-    const latitude = location?.latitude || 0; // Default to 0 if location is null
-    const longitude = location?.longitude || 0; // Default to 0 if location is null
+    const latitude = location?.latitude || null; // Default to 0 if location is null
+    const longitude = location?.longitude || null; // Default to 0 if location is null
   
     useEffect(() => {
         setMapKey(Date.now());
     }, [location]);
 
-    function mapUpdater(event) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function mapUpdater(event: { detail: { latLng: any; }; }) {
         const latLng = event.detail.latLng;
         if (latLng) {
             const newLocation = {
@@ -40,6 +41,9 @@ const TestComp3 = ({locations}:{locations: Location[] }) => {
 
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string}>
+              {latitude === (0 || null) && longitude === (0 || null) && (
+                <div>This box shows if no location was given or specified</div>
+            )}
             <Map
                 key={mapKey}
                 style={{ width: '500px', height: '325px' }}

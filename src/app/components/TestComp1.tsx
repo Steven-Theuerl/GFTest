@@ -1,41 +1,36 @@
-// Test_Comp1.js
+// components/TestComp1.tsx
 'use client'
-import React, { useState } from 'react';
-import { useLocationContext } from '../context';
 
-const Test_Comp1: React.FC = () => {
+import React, { useEffect } from 'react';
+import { useMapsLibrary } from '@vis.gl/react-google-maps'; // Ensure you have this import
+import { useLocationContext } from '../context'; // Adjust the import path as needed
+
+const TestComp1 = () => {
   const { setLocation } = useLocationContext();
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
+  const placesLib = useMapsLibrary('places');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLocation({
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
+  useEffect(() => {
+    if (!placesLib) return;
+
+    const input = document.getElementById('place-input') as HTMLInputElement;
+    const autocomplete = new placesLib.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (place.geometry && place.geometry.location) {
+        const location = place.geometry.location.toJSON();
+        const lat = location.lat || null; // Provide a default value if undefined
+        const lng = location.lng || null; // Provide a default value if undefined
+        setLocation({ latitude: lat, longitude: lng });
+      }
     });
-    localStorage.setItem('location', JSON.stringify({latitude: latitude, longitude: longitude}))
-    setLatitude(''); // Clear the input after submission
-    setLongitude(''); // Clear the input after submission
-  };
+  }, [placesLib, setLocation]);
 
   return (
-    <form className='flex gap-[8px]' onSubmit={handleSubmit}>
-      <input
-        type="number"
-        value={latitude}
-        onChange={(e) => setLatitude(e.target.value)}
-        placeholder="Enter latitude"
-      />
-      <input
-        type="number"
-        value={longitude}
-        onChange={(e) => setLongitude(e.target.value)}
-        placeholder="Enter longitude"
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <input id="place-input" type="text" placeholder="Enter a place" />
+    </div>
   );
 };
 
-export default Test_Comp1;
+export default TestComp1;
