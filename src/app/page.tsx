@@ -43,9 +43,7 @@ export default async function Home() {
   return (
     
     <div className={styles.Body}>
-      <p className='text-center'>
-        Hello, I would like to fetch some data please.
-      </p>  
+
 
       { /* Header Container */ }
       <div className={styles.headerUserContainer}>
@@ -112,8 +110,8 @@ export default async function Home() {
       <div className={styles.mapHouse}>
         <div className='flex flex-col gap-1 mb-1'>
           <TestComp1/>
-          <TestComp2/>
           <TestComp3 locations={locations}/>
+          <TestComp2/>
         </div>
       </div>
     </div>

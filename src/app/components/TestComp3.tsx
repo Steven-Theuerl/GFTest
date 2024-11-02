@@ -4,17 +4,15 @@ import React, { useState, useEffect } from "react";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps"; 
 import { useLocationContext } from "../context";
 
+
 interface Location {
-
     ItemLat: number; // or string, depending on your data type
-
     ItemLng: number; // or string
-
     ItemName: string
-
 }
 
 const TestComp3 = ({locations}:{locations: Location[] }) => {
+
     const { location, setLocation } = useLocationContext();
     const [mapKey, setMapKey] = useState(Date.now()); 
   
@@ -37,8 +35,6 @@ const TestComp3 = ({locations}:{locations: Location[] }) => {
         }
     }
 
-    console.log(locations)
-
     return (
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string}>
               {latitude === (0 || null) && longitude === (0 || null) && (
@@ -46,7 +42,7 @@ const TestComp3 = ({locations}:{locations: Location[] }) => {
             )}
             <Map
                 key={mapKey}
-                style={{ width: '500px', height: '325px' }}
+                style={{ width: '800px', height: '325px' }}
                 defaultCenter={{ lat: latitude, lng: longitude }} // Set the center based on the current location
                 defaultZoom={10}
                 gestureHandling={'greedy'}
@@ -68,6 +64,7 @@ const TestComp3 = ({locations}:{locations: Location[] }) => {
                           }}
                     />
                 ))}
+         
             </Map>
         </APIProvider>
     );

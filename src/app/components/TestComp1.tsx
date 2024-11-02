@@ -26,10 +26,26 @@ const TestComp1 = () => {
     });
   }, [placesLib, setLocation]);
 
+  function getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords; // Altitude can be added here if needed
+        const newLocation = { latitude, longitude };
+        setLocation(newLocation);
+        localStorage.setItem('location', JSON.stringify(newLocation)); // Save to localStorage
+      },
+  )}
+
   return (
-    <div>
-      <input id="place-input" type="text" placeholder="Enter a place" />
-    </div>
+    <div className='flex flex-col gap-[8px] items-center text-center'>
+      <div className='flex items-center bg-yellow-300 w-1/2 rounded-md'>
+        <p className='w-full'>
+          Please enter any place, city, zip-code, anywhere.
+        </p>
+      </div>
+      <input className='w-3/4 p-1' id="place-input" type="text" placeholder="Enter a place" />
+      <button className='bg-green-200 w-1/4 p-1 rounded-md' onClick={getCurrentLocation}>Use Current Location</button>
+  </div>
   );
 };
 
